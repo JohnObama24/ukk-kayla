@@ -5,11 +5,19 @@
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-                <img src="{{ asset('images/' . ($product->image ?? 'default.jpg')) }}" 
+                @php
+                    if ($product->image) {
+                        $imagePath = url($product->image);
+                    } else {
+                        $brandImage = strtolower($product->brand);
+                        $imagePath = "/images/{$brandImage}.jpg";
+                    }
+                @endphp
+                <img src="{{ $imagePath }}" 
                      class="card-img-top" 
                      alt="{{ $product->name }}"
                      style="height: 450px; object-fit: cover;"
-                     onerror="this.src='https://via.placeholder.com/500x500?text={{ $product->brand }}'">
+                     onerror="this.src='https://via.placeholder.com/500x500?text={{ urlencode($product->brand) }}'">
             </div>
         </div>
         

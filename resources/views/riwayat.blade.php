@@ -4,10 +4,7 @@
 <div class="container py-5">
     <h1 class="mb-4 text-center">📋 RIWAYAT PEMBELIAN</h1>
     
-    @php
-        $orders = DB::table('orders')->orderBy('created_at', 'desc')->get();
-    @endphp
-    
+    <!-- Orders are provided by the controller -->
     @if($orders->isEmpty())
         <div class="alert alert-info text-center py-5">
             <i class="fas fa-box-open fa-3x mb-3 d-block"></i>

@@ -29,8 +29,8 @@
                 <select name="brand" class="form-select form-select-lg rounded-pill">
                     <option value="">Semua Brand</option>
                     @foreach($brands as $brand)
-                    <option value="{{ $brand->brand }}" {{ request('brand') == $brand->brand ? 'selected' : '' }}>
-                        {{ $brand->brand }}
+                    <option value="{{ $brand }}" {{ request('brand') == $brand ? 'selected' : '' }}>
+                        {{ $brand }}
                     </option>
                     @endforeach
                 </select>
@@ -66,10 +66,14 @@
                     </span>
                 </div>
                 
-                <!-- GAMBAR - AUTO DETEK BERDASARKAN BRAND -->
+                <!-- GAMBAR - AUTO DETEK ATAU UPLOAD -->
                 @php
-                    $brandImage = strtolower($product->brand);
-                    $imagePath = "/images/{$brandImage}.jpg";
+                    if ($product->image) {
+                        $imagePath = url($product->image);
+                    } else {
+                        $brandImage = strtolower($product->brand);
+                        $imagePath = "/images/{$brandImage}.jpg";
+                    }
                 @endphp
                 
                 <img src="{{ $imagePath }}" 

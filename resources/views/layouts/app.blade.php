@@ -131,13 +131,41 @@
                             $cartCount = count(session('cart', []));
                         @endphp
                         @if($cartCount > 0)
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
                                 {{ $cartCount }}
                                 <span class="visually-hidden">items in cart</span>
                             </span>
                         @endif
                     </a>
                 </li>
+                @guest
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+                    </li>
+                @else
+                    @if(Auth::user()->role === 'admin')
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-warning" href="{{ route('admin.dashboard') }}">
+                                <i class="fas fa-user-shield me-1"></i>Dashboard Admin
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item mx-2">
+                            <a class="nav-link" href="{{ route('riwayat') }}">
+                                <i class="fas fa-history me-1"></i>Riwayat
+                            </a>
+                        </li>
+                    @endif
+                    <li class="nav-item mx-2">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">Logout</button>
+                        </form>
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>
