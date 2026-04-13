@@ -185,7 +185,7 @@ Route::middleware(['auth'])->group(function() {
     'total_price' => $total,
     'items' => implode('; ', $items),
 
-    'payment_method' =>  request('payment_method'),
+    'payment_method' =>  request('payment_method', 'cod'),
 
     'created_at' => now()
 ]);
