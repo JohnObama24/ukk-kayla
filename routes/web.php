@@ -167,7 +167,7 @@ Route::middleware(['auth'])->group(function() {
         $name = request('name');
         $email = request('email');
         $address = request('address');
-        $phone = request('phone');
+        $phone = request('phone') ?: '-';
         
         $total = 0;
         $items = [];
@@ -176,13 +176,19 @@ Route::middleware(['auth'])->group(function() {
             $items[] = $item['name'] . ' x' . $item['qty'];
         }
         
-        DB::table('orders')->insert([
-            'user_id' => Auth::id(),
-            'name' => $name, 'email' => $email, 'address' => $address,
-            'phone' => $phone, 'total_price' => $total,
-            'items' => implode('; ', $items), 'created_at' => now()
-        ]);
-        
+      DB::table('orders')->insert([
+    'user_id' => Auth::id(),
+    'name' => $name, 
+    'email' => $email, 
+    'address' => $address,
+    'phone' => $phone, 
+    'total_price' => $total,
+    'items' => implode('; ', $items),
+
+    'payment_method' =>  request('payment_method'),
+
+    'created_at' => now()
+]);
         session()->forget('cart');
         return redirect('/checkout/success');
     });

@@ -16,20 +16,26 @@
                     
                     <form action="/checkout/process" method="POST">
                         @csrf
-                        
+
+                        <label class="form-label">Metode Pembayaran <span class="text-danger">*</span></label>
+                            <select name="payment_method" class="form-control form-control-lg mb-3" required>
+                                <option value="">-- Pilih Metode Pembayaran --</option>
+                                <option value="cod">Cash on Delivery (COD)</option>
+                            </select>
+
                         <div class="mb-3">
                             <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control form-control-lg" required placeholder="Masukkan nama lengkap">
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label">Email <span class="text-danger">*</span></label>
                             <input type="email" name="email" class="form-control form-control-lg" required placeholder="email@contoh.com">
                         </div>
-                        
+
                         <div class="mb-3">
-                            <label class="form-label">Nomor Telepon</label>
-                            <input type="tel" name="phone" class="form-control form-control-lg" placeholder="0812-3456-7890">
+                            <label class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" class="form-control form-control-lg" required placeholder="0812-3456-7890">
                         </div>
                         
                         <div class="mb-3">
